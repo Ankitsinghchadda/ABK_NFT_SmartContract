@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox")
-require("hardhat-deploy")
+require("./tasks")
+// require("hardhat-deploy")
 require("solidity-coverage")
 require("hardhat-gas-reporter")
 require("hardhat-contract-sizer")
