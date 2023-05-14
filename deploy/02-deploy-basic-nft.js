@@ -11,14 +11,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
     log("----------------------------------------------------")
     const args = []
-    const basicNft = await deploy("BasicNft", {
-        from: deployer,
-        args: args,
-        log: true,
-        waitConfirmations: waitBlockConfirmations,
-    })
-
-    const basicNftTwo = await deploy("BasicNftTwo", {
+    const basicNft = await deploy("NFT", {
         from: deployer,
         args: args,
         log: true,

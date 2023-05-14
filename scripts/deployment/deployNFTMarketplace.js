@@ -5,7 +5,7 @@ const {
     developmentChains,
 } = require("../../helper-hardhat-config")
 
-async function deployNFTMarketplace(chainId) {
+async function deployNFTMarketplace() {
     //set log level to ignore non errors
     ethers.utils.Logger.setLogLevel(ethers.utils.Logger.levels.ERROR)
 
@@ -17,15 +17,18 @@ async function deployNFTMarketplace(chainId) {
     let NFT
     let NFTAddress
 
-    if (chainId == 31337) {
-        const NftMarketplaceFactory = await ethers.getContractFactory("NftMarketplace")
-        NftMarketplace = await NftMarketplaceFactory.connect(deployer).deploy()
-        NftMarketplaceAddress = NftMarketplace.address
+    const NftMarketplaceFactory = await ethers.getContractFactory("NftMarketplace")
+    NftMarketplace = await NftMarketplaceFactory.connect(deployer).deploy()
+    NftMarketplaceAddress = NftMarketplace.address
 
-        const NFTFactory = await ethers.getContractFactory("BasicNft")
-        NFT = await NFTFactory.connect(deployer).deploy()
-        NFTAddress = NFT.address
-    }
+    const NFTFactory = await ethers.getContractFactory("NFT")
+    NFT = await NFTFactory.connect(deployer).deploy(
+        "PrimeNFT",
+        "PNFT",
+        ethers.utils.parseEther("0.0000001"),
+        deployer
+    )
+    NFTAddress = NFT.address
 
     const waitBlockConfirmations = developmentChains.includes(network.name)
         ? 1
